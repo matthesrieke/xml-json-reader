@@ -1,5 +1,7 @@
 package org.n52.datareader;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.DirectoryStream;
