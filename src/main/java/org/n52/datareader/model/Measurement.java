@@ -5,6 +5,7 @@
  */
 package org.n52.datareader.model;
 
+import org.n52.datareader.service.DateFormatter;
 import java.util.Date;
 
 /**
@@ -50,4 +51,14 @@ public class Measurement {
         this.comment = comment;
     }
     
+    @Override
+    public String toString() {
+        return "Measurement{" +
+                "value=" + value +
+                ", time=" + new DateFormatter().marshal(time) +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
+
 }
