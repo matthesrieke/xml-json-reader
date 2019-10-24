@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DateFormatter extends XmlAdapter<String, Date> {
 
-   private static final String CUSTOM_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+   public static final String CUSTOM_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     @Override
     public String marshal(Date v) {
@@ -18,5 +18,6 @@ public class DateFormatter extends XmlAdapter<String, Date> {
     public Date unmarshal(String v) throws ParseException {
         return new SimpleDateFormat(CUSTOM_FORMAT_STRING).parse(v);
     }
+
 }
 
