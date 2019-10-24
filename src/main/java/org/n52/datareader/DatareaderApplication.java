@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.stream.StreamSupport;
+
+import org.apache.tika.Tika;
 import org.n52.datareader.coding.DataFormatReader;
 import org.n52.datareader.model.Measurement;
 import org.slf4j.Logger;
@@ -43,9 +45,9 @@ public class DatareaderApplication implements InitializingBean {
             Spliterator<Path> F = directoryStream.spliterator();
             StreamSupport.stream(F, true).forEach(dataFile -> {
                 try {
-                    String mimeType = Files.probeContentType(dataFile);
+                    Tika tika = new Tika();
+                    String mimeType = tika.detect(dataFile.toFile());
                     MimeType asMimeType = MimeType.valueOf(mimeType);
-
                     Optional<DataFormatReader> candidate = this.readers.stream()
                             .filter(h -> h.supportsDataFormat(asMimeType))
                             .findFirst();
