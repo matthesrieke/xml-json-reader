@@ -41,10 +41,8 @@ public class DatareaderApplication implements InitializingBean {
             Path directory = asPath.getParent();
             StreamSupport.stream(Files.newDirectoryStream(directory).spliterator(), true).forEach(dataFile -> {
                 try {
-                    //String mimeType = Files.probeContentType(dataFile);
-                    //MimeType asMimeType = MimeType.valueOf(mimeType);
                     Tika tika = new Tika();
-                    String mimeType = tika.detect(asPath);
+                    String mimeType = tika.detect(dataFile);
                     MimeType asMimeType = MimeType.valueOf(mimeType);
 
                     Optional<DataFormatReader> candidate = this.readers.stream()
