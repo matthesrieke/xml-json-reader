@@ -2,11 +2,13 @@ package org.n52.datareader;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.Spliterator;
 import java.util.stream.StreamSupport;
 import org.n52.datareader.coding.DataFormatReader;
 import org.n52.datareader.model.Measurement;
@@ -37,7 +39,9 @@ public class DatareaderApplication implements InitializingBean {
 
         if (Files.exists(asPath)) {
             Path directory = asPath.getParent();
-            StreamSupport.stream(Files.newDirectoryStream(directory).spliterator(), true).forEach(dataFile -> {
+            DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory);
+            Spliterator<Path> F = directoryStream.spliterator();
+            StreamSupport.stream(F, true).forEach(dataFile -> {
                 try {
                     String mimeType = Files.probeContentType(dataFile);
                     MimeType asMimeType = MimeType.valueOf(mimeType);
