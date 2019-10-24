@@ -5,6 +5,7 @@
  */
 package org.n52.datareader.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.n52.datareader.service.DateFormatter;
 
 import javax.xml.bind.annotation.*;
@@ -36,6 +37,7 @@ public class Measurement {
     public double getValue() {
         return value;
     }
+    @JsonProperty("Value")
     @XmlElement(name = "Value")
     public void setValue(double value) {
         this.value = value;
@@ -45,6 +47,7 @@ public class Measurement {
         return time;
     }
     @XmlJavaTypeAdapter(DateFormatter.class)
+    @JsonProperty("Time")
     @XmlElement(name = "Time")
     public void setTime(Date time) {
         this.time = time;
@@ -53,6 +56,7 @@ public class Measurement {
     public String getComment() {
         return comment;
     }
+    @JsonProperty("Comment")
     @XmlElement(name = "Comment")
     public void setComment(String comment) {
         this.comment = comment;
