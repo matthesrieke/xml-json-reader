@@ -8,7 +8,7 @@ package org.n52.datareader.coding;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.Collections;
+import java.text.ParseException;
 import java.util.List;
 
 import org.n52.datareader.model.Measurement;
@@ -43,8 +43,12 @@ public class CsvReader implements DataFormatReader {
     private List<Measurement> read(Object o) throws IOException {
         Measurements measurements;
         CsvParser csvParser = new CsvParser();
-        csvParser.readCsvFile(o);
+        try {
+            csvParser.readCsvFile(o);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         measurements = csvParser.getContent();
-        return measurements.getMeasurementList();
+        return measurements.getMeasurements();
     }
 }
