@@ -7,14 +7,15 @@ import org.n52.datareader.model.Measurements;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.text.ParseException;
 
 public class CsvParser {
     Measurements measurements = new Measurements();
 
 
-    public void readCsvFile(Object source) throws IOException {
+    public void readCsvFile(Object source) throws IOException, ParseException {
         Reader in = null;
-
+        DateFormatter dateFormatter = new DateFormatter();
         if (source instanceof Path)
             in = new FileReader(( ((Path) source).toFile()));
         else if (source instanceof InputStream)
@@ -26,8 +27,8 @@ public class CsvParser {
             String time = (String) record.get("Time");
             String value = (String) record.get("Value");
             String comment = (String) record.get("Comment");
-            Measurement measurement = new Measurement(Double.parseDouble(value), DateFormatter.formatDate(time), comment);
-            measurements.getMeasurementList().add(measurement);
+            Measurement measurement = new Measurement(Double.parseDouble(value), dateFormatter.unmarshal(time), comment);
+            measurements.getMeasurements().add(measurement);
         }
     }
 
