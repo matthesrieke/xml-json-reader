@@ -6,12 +6,18 @@
 package org.n52.datareader.model;
 
 import org.n52.datareader.service.DateFormatter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 /**
  *
  * @author matthes rieke
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType(name = "measurement",propOrder = {"time","value","comment"})
 public class Measurement {
     
     private double value;
@@ -30,7 +36,7 @@ public class Measurement {
     public double getValue() {
         return value;
     }
-
+    @XmlElement(name = "Value")
     public void setValue(double value) {
         this.value = value;
     }
@@ -38,7 +44,8 @@ public class Measurement {
     public Date getTime() {
         return time;
     }
-
+    @XmlJavaTypeAdapter(DateFormatter.class)
+    @XmlElement(name = "Time")
     public void setTime(Date time) {
         this.time = time;
     }
@@ -46,11 +53,10 @@ public class Measurement {
     public String getComment() {
         return comment;
     }
-
+    @XmlElement(name = "Comment")
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
     @Override
     public String toString() {
         return "Measurement{" +
