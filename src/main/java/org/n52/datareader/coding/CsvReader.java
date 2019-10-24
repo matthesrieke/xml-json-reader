@@ -10,16 +10,21 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+
 import org.n52.datareader.model.Measurement;
+import org.n52.datareader.model.Measurements;
+import org.n52.datareader.service.CsvParser;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 
+
 /**
- *
  * @author matthes rieke
  */
 @Component
 public class CsvReader implements DataFormatReader {
+
+
 
     @Override
     public boolean supportsDataFormat(MimeType mt) {
@@ -28,12 +33,18 @@ public class CsvReader implements DataFormatReader {
 
     @Override
     public List<Measurement> readFile(Path p) throws IOException {
-        return Collections.emptyList();
+        return read(p);
     }
 
     @Override
     public List<Measurement> readStream(InputStream stream) throws IOException {
-        return Collections.emptyList();
+        return read(stream);
     }
-    
+    private List<Measurement> read(Object o) throws IOException {
+        Measurements measurements;
+        CsvParser csvParser = new CsvParser();
+        csvParser.readCsvFile(o);
+        measurements = csvParser.getContent();
+        return measurements.getMeasurementList();
+    }
 }
