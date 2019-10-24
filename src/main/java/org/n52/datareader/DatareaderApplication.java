@@ -1,6 +1,7 @@
 package org.n52.datareader;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,7 +32,7 @@ public class DatareaderApplication implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String f = getClass().getResource("/data/file1.csv").getFile();
+        URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
 
         if (Files.exists(asPath)) {
