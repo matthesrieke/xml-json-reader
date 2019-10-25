@@ -1,11 +1,13 @@
 package org.n52.datareader.service;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.n52.datareader.model.Measurement;
 import org.n52.datareader.model.Measurements;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.text.ParseException;
 
@@ -14,15 +16,16 @@ public class CsvParser {
 
 
     public void readCsvFile(Object source) throws IOException, ParseException {
-        Reader in = null;
+        Iterable<CSVRecord> records;
         DateFormatter dateFormatter = new DateFormatter();
-        if (source instanceof Path)
-            in = new FileReader(( ((Path) source).toFile()));
-        else if (source instanceof InputStream)
-             in = (Reader) (new InputStreamReader((InputStream) source));
-
         CSVFormat csvFormat = CSVFormat.EXCEL.withDelimiter(';').withHeader().withSkipHeaderRecord();
-        Iterable<CSVRecord> records = csvFormat.parse(in);
+
+        if (source instanceof Path) {
+             records = CSVParser.parse((Path) source, Charset.defaultCharset(),csvFormat);
+        } else if (source instanceof InputStream) {
+             records = CSVParser.parse((InputStream) source, Charset.defaultCharset(),csvFormat);
+        }else throw new IOException("the given object is neither path  nor InputSteam Instance") ;
+
         for (CSVRecord record : records) {
             String time = (String) record.get(Measurement.TIME);
             String value = (String) record.get(Measurement.VALUE);
