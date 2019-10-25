@@ -22,7 +22,7 @@ public class XmlReader implements DataFormatReader {
     @Override
     public List<Measurement> readFile(Path p) throws IOException {
         try {
-            parser.unmarshall(p.toFile());
+            parser.unmarshall(p);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

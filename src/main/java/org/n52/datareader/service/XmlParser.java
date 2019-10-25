@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 
 public class XmlParser {
@@ -17,10 +18,12 @@ public class XmlParser {
 
     public void unmarshall(Object in) throws JAXBException, IOException {
         JAXBContext context = JAXBContext.newInstance(Measurements.class);
-        if (in instanceof File)
-            measurements = (Measurements) context.createUnmarshaller().unmarshal(new FileReader((File) in));
-        else if (in instanceof InputStream)
+        if (in instanceof Path){
+            File file = ((Path) in).toFile();
+            measurements = (Measurements) context.createUnmarshaller().unmarshal(new FileReader(file));
+        }else if (in instanceof InputStream) {
             measurements = (Measurements) context.createUnmarshaller().unmarshal((InputStream) in);
+        }else throw new IOException("the given object is neither path  nor InputSteam Instance") ;
     }
 
     public Measurements getContent() {

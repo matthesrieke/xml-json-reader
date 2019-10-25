@@ -21,7 +21,7 @@ public class JsonReader implements DataFormatReader {
 
     @Override
     public List<Measurement> readFile(Path p) throws IOException {
-        return readJson(p.toFile());
+        return readJson(p);
     }
 
     @Override
