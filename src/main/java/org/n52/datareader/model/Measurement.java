@@ -13,21 +13,24 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 /**
- *
  * @author matthes rieke
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(name = "measurement",propOrder = {"time","value","comment"})
+@XmlType(name = "measurement", propOrder = {"time", "value", "comment"})
 public class Measurement {
-    
+
+    public static final String VALUE = "Value";
+    public static final String TIME = "Time";
+    public static final String COMMENT = "Comment";
+
     private double value;
     private Date time;
     private String comment;
 
     public Measurement() {
     }
-    
+
     public Measurement(double value, Date time, String comment) {
         this.value = value;
         this.time = time;
@@ -37,8 +40,9 @@ public class Measurement {
     public double getValue() {
         return value;
     }
-    @JsonProperty("Value")
-    @XmlElement(name = "Value")
+
+    @JsonProperty(VALUE)
+    @XmlElement(name = VALUE)
     public void setValue(double value) {
         this.value = value;
     }
@@ -46,9 +50,10 @@ public class Measurement {
     public Date getTime() {
         return time;
     }
+
     @XmlJavaTypeAdapter(DateFormatter.class)
-    @JsonProperty("Time")
-    @XmlElement(name = "Time")
+    @JsonProperty(TIME)
+    @XmlElement(name = TIME)
     public void setTime(Date time) {
         this.time = time;
     }
@@ -56,17 +61,19 @@ public class Measurement {
     public String getComment() {
         return comment;
     }
-    @JsonProperty("Comment")
-    @XmlElement(name = "Comment")
+
+    @JsonProperty(COMMENT)
+    @XmlElement(name = COMMENT)
     public void setComment(String comment) {
         this.comment = comment;
     }
+
     @Override
     public String toString() {
         return "Measurement{" +
-                "value=" + value +
-                ", time=" + new DateFormatter().marshal(time) +
-                ", comment='" + comment + '\'' +
+                VALUE + "=" + value +
+                "," + TIME + "=" + new DateFormatter().marshal(time) +
+                ", " + COMMENT + "='" + comment + '\'' +
                 '}';
     }
 
