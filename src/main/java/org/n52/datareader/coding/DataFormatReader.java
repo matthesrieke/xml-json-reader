@@ -11,6 +11,9 @@ import java.nio.file.Path;
 import java.util.List;
 import org.n52.datareader.model.Measurement;
 import org.springframework.util.MimeType;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * This interface provides method for decoding (~= reading) a specific

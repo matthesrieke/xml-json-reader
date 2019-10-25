@@ -1,12 +1,19 @@
 package org.n52.datareader;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.Spliterator;
 import java.util.stream.StreamSupport;
+
+import org.apache.tika.Tika;
 import org.n52.datareader.coding.DataFormatReader;
 import org.n52.datareader.model.Measurement;
 import org.slf4j.Logger;
@@ -16,11 +23,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.MimeType;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 
 @SpringBootApplication
 public class DatareaderApplication implements InitializingBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DatareaderApplication.class);
+    private static Logger LOG = LoggerFactory.getLogger(DatareaderApplication.class);
 
     @Autowired
     List<DataFormatReader> readers;
@@ -31,22 +42,29 @@ public class DatareaderApplication implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String f = getClass().getResource("/data/file1.csv").getFile();
+        URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
 
         if (Files.exists(asPath)) {
             Path directory = asPath.getParent();
-            StreamSupport.stream(Files.newDirectoryStream(directory).spliterator(), true).forEach(dataFile -> {
+            DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory);
+            Spliterator<Path> F = directoryStream.spliterator();
+            StreamSupport.stream(F, true).forEach(dataFile -> {
                 try {
-                    String mimeType = Files.probeContentType(dataFile);
+                    Tika tika = new Tika();
+                    String mimeType = tika.detect(dataFile.toFile());
                     MimeType asMimeType = MimeType.valueOf(mimeType);
-
                     Optional<DataFormatReader> candidate = this.readers.stream()
                             .filter(h -> h.supportsDataFormat(asMimeType))
                             .findFirst();
 
                     if (candidate.isPresent()) {
-                        List<Measurement> result = candidate.get().readFile(dataFile);
+                        List<Measurement> result;
+                        if (mimeType.equals("application/json")) {
+                             result = candidate.get().readStream(new FileInputStream(dataFile.toFile()));
+                        } else {
+                            result = candidate.get().readFile(dataFile);
+                        }
                         LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
                     } else {
                         LOG.info("File type not supported: {}", asMimeType);
