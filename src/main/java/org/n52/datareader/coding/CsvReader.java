@@ -40,6 +40,7 @@ public class CsvReader implements DataFormatReader {
     public List<Measurement> readStream(InputStream stream) throws IOException {
         return read(stream);
     }
+
     private List<Measurement> read(Object o) throws IOException {
         Measurements measurements;
         CsvParser csvParser = new CsvParser();

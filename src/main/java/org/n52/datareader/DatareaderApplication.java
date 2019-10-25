@@ -24,6 +24,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.MimeType;
 
+
 @SpringBootApplication
 public class DatareaderApplication implements InitializingBean {
 
@@ -56,6 +57,7 @@ public class DatareaderApplication implements InitializingBean {
 
                     if (candidate.isPresent()) {
                         List<Measurement> result = candidate.get().readFile(dataFile);
+
                         LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
                     } else {
                         LOG.info("File type not supported: {}", asMimeType);

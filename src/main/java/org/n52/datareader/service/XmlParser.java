@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class XmlParser  {
+public class XmlParser {
 
 
     private Measurements measurements;
@@ -18,7 +18,7 @@ public class XmlParser  {
     public void unmarshall(Object in) throws JAXBException, IOException {
         JAXBContext context = JAXBContext.newInstance(Measurements.class);
         if (in instanceof File)
-             measurements = (Measurements) context.createUnmarshaller().unmarshal(new FileReader((File)in));
+            measurements = (Measurements) context.createUnmarshaller().unmarshal(new FileReader((File) in));
         else if (in instanceof InputStream)
             measurements = (Measurements) context.createUnmarshaller().unmarshal((InputStream) in);
     }
