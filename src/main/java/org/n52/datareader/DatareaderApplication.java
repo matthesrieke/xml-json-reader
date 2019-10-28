@@ -20,6 +20,8 @@ import org.springframework.util.MimeType;
 //Importing apache Tika
 import org.apache.tika.*;
 
+import javax.xml.bind.JAXBException;
+
 @SpringBootApplication
 public class DatareaderApplication implements InitializingBean {
 
@@ -33,7 +35,7 @@ public class DatareaderApplication implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() throws Exception{
         URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
 
@@ -50,8 +52,13 @@ public class DatareaderApplication implements InitializingBean {
                             .findFirst();
 
                     if (candidate.isPresent()) {
-                        List<Measurement> result = candidate.get().readFile(dataFile);
-                        LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
+                        try{
+                            List<Measurement> result = candidate.get().readFile(dataFile);
+                            LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
+                        } catch  (JAXBException e) {
+                            e.printStackTrace();
+                        }
+
                     } else {
                         LOG.info("File type not supported: {}", asMimeType);
                     }

@@ -12,6 +12,8 @@ import java.util.List;
 import org.n52.datareader.model.Measurement;
 import org.springframework.util.MimeType;
 
+import javax.xml.bind.JAXBException;
+
 /**
  * This interface provides method for decoding (~= reading) a specific
  * data format to create Measurement objects from the data.
@@ -26,7 +28,7 @@ public interface DataFormatReader {
     
     boolean supportsDataFormat(MimeType mt);
     
-    List<Measurement> readFile(Path p) throws IOException;
+    List<Measurement> readFile(Path p) throws IOException, JAXBException;
     
     List<Measurement> readStream(InputStream stream) throws IOException;
     
