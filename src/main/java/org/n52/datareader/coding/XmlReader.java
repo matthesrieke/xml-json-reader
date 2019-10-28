@@ -25,8 +25,11 @@ public class XmlReader implements DataFormatReader {
     }
 
     @Override
-    public List<Measurement> readFile(Path p) throws IOException, JAXBException {
+    public List<Measurement> readFile(Path p) throws IOException {
+        try {
+            //Converting the Path object into a Folder so it can be used in jUnmarshaller.unmarshal
             File file = p.toFile();
+            // Creating Unmarshaller
             JAXBContext jContext = JAXBContext.newInstance(Measurements.class);
             Unmarshaller jUnmarshaller = jContext.createUnmarshaller();
 
@@ -34,7 +37,9 @@ public class XmlReader implements DataFormatReader {
 
             return unmarshaledList.getMeasurements();
 
-
+        } catch (JAXBException e){
+            throw new IOException(e);
+        }
     }
 
 

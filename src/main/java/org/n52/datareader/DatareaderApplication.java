@@ -52,12 +52,8 @@ public class DatareaderApplication implements InitializingBean {
                             .findFirst();
 
                     if (candidate.isPresent()) {
-                        try{
                             List<Measurement> result = candidate.get().readFile(dataFile);
                             LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
-                        } catch  (JAXBException e) {
-                            e.printStackTrace();
-                        }
 
                     } else {
                         LOG.info("File type not supported: {}", asMimeType);
