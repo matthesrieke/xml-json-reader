@@ -6,6 +6,8 @@
 package org.n52.datareader.model;
 
 import javax.xml.bind.annotation.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -57,9 +59,10 @@ public class Measurement {
 
     @Override
     public String toString() {
+        DateFormat df = new SimpleDateFormat("yyy-MM-dd'T'HH:mm:ss'Z'");
         return "Measurement{" +
                 "value=" + value +
-                ", time=" + time +
+                ", time=" + df.format(time) +
                 ", comment='" + comment + '\'' +
                 '}';
     }
