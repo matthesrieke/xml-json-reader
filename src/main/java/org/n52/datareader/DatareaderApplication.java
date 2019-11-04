@@ -1,5 +1,6 @@
 package org.n52.datareader;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -52,7 +53,7 @@ public class DatareaderApplication implements InitializingBean {
                             .findFirst();
 
                     if (candidate.isPresent()) {
-                            List<Measurement> result = candidate.get().readFile(dataFile);
+                            List<Measurement> result = candidate.get().readStream(new FileInputStream(dataFile.toFile()));
                             LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
 
                     } else {

@@ -91,8 +91,8 @@ public class CsvReader implements DataFormatReader {
                 }
             }
 
-        } catch (ParseException e) {
-            throw new IOException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
