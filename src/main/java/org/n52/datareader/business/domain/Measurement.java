@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.n52.datareader.model;
+package org.n52.datareader.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.n52.datareader.service.DateFormatter;
+import org.n52.datareader.business.service.DateFormatter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -25,6 +26,7 @@ public class Measurement {
     public static final String COMMENT = "Comment";
 
     private double value;
+    @JsonFormat(pattern=DateFormatter.CUSTOM_FORMAT_STRING)
     private Date time;
     private String comment;
 

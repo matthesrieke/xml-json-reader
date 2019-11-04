@@ -1,6 +1,6 @@
-package org.n52.datareader.service;
+package org.n52.datareader.business.service;
 
-import org.n52.datareader.model.Measurements;
+import org.n52.datareader.business.domain.Measurements;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

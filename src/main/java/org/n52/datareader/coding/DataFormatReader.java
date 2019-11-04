@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
-import org.n52.datareader.model.Measurement;
+import org.n52.datareader.business.domain.Measurement;
 import org.springframework.util.MimeType;
 
 /**

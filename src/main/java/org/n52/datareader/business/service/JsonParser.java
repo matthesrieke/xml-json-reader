@@ -1,15 +1,13 @@
-package org.n52.datareader.service;
+package org.n52.datareader.business.service;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.n52.datareader.model.Measurement;
-import org.n52.datareader.model.Measurements;
+import org.n52.datareader.business.domain.Measurement;
+import org.n52.datareader.business.domain.Measurements;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class JsonParser {
@@ -18,8 +16,8 @@ public class JsonParser {
 
     public void readJson(Object in) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        DateFormat df = new SimpleDateFormat(DateFormatter.CUSTOM_FORMAT_STRING);
-        objectMapper.setDateFormat(df);
+      /*  DateFormat df = new SimpleDateFormat(DateFormatter.CUSTOM_FORMAT_STRING);
+        objectMapper.setDateFormat(df);*/
         if (in instanceof Path) {
             File file = ((Path) in).toFile();
             measurements.setMeasurements(objectMapper.readValue(file, new TypeReference<List<Measurement>>() {

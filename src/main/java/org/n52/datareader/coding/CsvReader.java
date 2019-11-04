@@ -11,9 +11,9 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
 
-import org.n52.datareader.model.Measurement;
-import org.n52.datareader.model.Measurements;
-import org.n52.datareader.service.CsvParser;
+import org.n52.datareader.business.domain.Measurement;
+import org.n52.datareader.business.domain.Measurements;
+import org.n52.datareader.business.service.CsvParser;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 

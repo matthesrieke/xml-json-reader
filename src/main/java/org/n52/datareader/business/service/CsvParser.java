@@ -1,10 +1,10 @@
-package org.n52.datareader.service;
+package org.n52.datareader.business.service;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.n52.datareader.model.Measurement;
-import org.n52.datareader.model.Measurements;
+import org.n52.datareader.business.domain.Measurement;
+import org.n52.datareader.business.domain.Measurements;
 
 import java.io.*;
 import java.nio.charset.Charset;

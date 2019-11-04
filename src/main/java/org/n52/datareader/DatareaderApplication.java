@@ -1,34 +1,22 @@
 package org.n52.datareader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
-import java.util.Spliterator;
-import java.util.stream.StreamSupport;
 
-import org.apache.tika.Tika;
 import org.n52.datareader.coding.DataFormatReader;
-import org.n52.datareader.model.Measurement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.util.MimeType;
+import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
-public class DatareaderApplication implements InitializingBean {
-
-    private static final Logger LOG = LoggerFactory.getLogger(DatareaderApplication.class);
+public class DatareaderApplication {
+    @Bean
+    public Logger getLogger(){
+        return LoggerFactory.getLogger(DatareaderApplication.class);
+    }
 
     @Autowired
     List<DataFormatReader> readers;
@@ -37,7 +25,7 @@ public class DatareaderApplication implements InitializingBean {
         SpringApplication.run(DatareaderApplication.class, args);
     }
 
-    @Override
+    /** @Override
     public void afterPropertiesSet() throws Exception {
         URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
@@ -69,6 +57,6 @@ public class DatareaderApplication implements InitializingBean {
             });
         }
 
-    }
+    }*/
 
 }
