@@ -1,7 +1,8 @@
 package org.n52.datareader.coding;
 
-import org.n52.datareader.model.Measurement;
-import org.n52.datareader.service.XmlParser;
+import org.n52.datareader.business.domain.Measurement;
+import org.n52.datareader.business.service.XmlParser;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 
@@ -16,7 +17,7 @@ public class XmlReader implements DataFormatReader {
     private XmlParser parser = new XmlParser();
     @Override
     public boolean supportsDataFormat(MimeType mt) {
-        return MimeType.valueOf("application/xml").isCompatibleWith(mt);
+        return MimeType.valueOf(MediaType.APPLICATION_XML_VALUE).isCompatibleWith(mt);
     }
 
     @Override

@@ -1,8 +1,9 @@
 package org.n52.datareader.coding;
 
-import org.n52.datareader.model.Measurement;
-import org.n52.datareader.model.Measurements;
-import org.n52.datareader.service.JsonParser;
+import org.n52.datareader.business.domain.Measurement;
+import org.n52.datareader.business.domain.Measurements;
+import org.n52.datareader.business.service.JsonParser;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 
@@ -16,7 +17,7 @@ public class JsonReader implements DataFormatReader {
 
     @Override
     public boolean supportsDataFormat(MimeType mt) {
-        return MimeType.valueOf("application/json").isCompatibleWith(mt);
+        return MimeType.valueOf(MediaType.APPLICATION_JSON_VALUE).isCompatibleWith(mt);
     }
 
     @Override
