@@ -45,6 +45,18 @@ public class XmlReader implements DataFormatReader {
 
     @Override
     public List<Measurement> readStream(InputStream stream) throws IOException {
-        return Collections.emptyList();
+
+        try {
+            // Creating Unmarshaller
+            JAXBContext jContext = JAXBContext.newInstance(Measurements.class);
+            javax.xml.bind.Unmarshaller jUnmarshaller = jContext.createUnmarshaller();
+
+            Measurements unmarshaledList = (Measurements) jUnmarshaller.unmarshal(stream);
+
+            return unmarshaledList.getMeasurements();
+
+        } catch (JAXBException e){
+            throw new IOException(e);
+        }
     }
 }
