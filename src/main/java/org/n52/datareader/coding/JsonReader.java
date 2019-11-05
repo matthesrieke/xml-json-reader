@@ -26,17 +26,18 @@ public class JsonReader implements DataFormatReader{
     public List<Measurement> readFile(Path p) throws IOException {
         //Converting the Path object into a Folder
         File file = p.toFile();
-
         ObjectMapper mapper = new ObjectMapper();
         JavaType listType = mapper.getTypeFactory().constructCollectionType(List.class, Measurement.class);
         List<Measurement> measurements = mapper.readValue(file, listType);
-
         return measurements;
     }
 
     @Override
     public List<Measurement> readStream(InputStream stream) throws IOException {
-        return Collections.emptyList();
+        ObjectMapper mapper = new ObjectMapper();
+        JavaType listType = mapper.getTypeFactory().constructCollectionType(List.class, Measurement.class);
+        List<Measurement> measurements = mapper.readValue(stream, listType);
+        return measurements;
     }
 
 }
