@@ -20,13 +20,21 @@ import java.util.List;
 import org.n52.datareader.model.Measurement;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author matthes rieke
  */
-@Component
-public class CsvReader implements DataFormatReader {
+
+
+//@Component
+@RestController
+@RequestMapping("/api")
+public class csvReader implements DataFormatReader {
 
     @Override
     public boolean supportsDataFormat(MimeType mt) {
@@ -34,6 +42,7 @@ public class CsvReader implements DataFormatReader {
     }
 
     @Override
+    @GetMapping(value = "/csv-data", produces = "application/json")
     public List<Measurement> readFile(Path p) throws IOException {
         //Creating a measurement list
         List<Measurement> list = new ArrayList<>();
@@ -95,6 +104,11 @@ public class CsvReader implements DataFormatReader {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @GetMapping("/csv-data")
+    public String getString(){
+        return "this is the result";
     }
     
 }

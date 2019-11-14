@@ -4,6 +4,8 @@ import org.n52.datareader.model.Measurement;
 import org.n52.datareader.model.Measurements;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,7 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class XmlReader implements DataFormatReader {
+//RestController
+public class xmlReader implements DataFormatReader {
 
     @Override
     public boolean supportsDataFormat(MimeType mt) {
@@ -25,6 +28,7 @@ public class XmlReader implements DataFormatReader {
     }
 
     @Override
+    //@GetMapping( path = "/xml-data", produces = "application/xml")
     public List<Measurement> readFile(Path p) throws IOException {
         try {
             //Converting the Path object into a Folder so it can be used in jUnmarshaller.unmarshal

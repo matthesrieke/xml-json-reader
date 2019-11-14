@@ -7,6 +7,7 @@ package org.n52.datareader.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.context.annotation.Bean;
 
 import javax.xml.bind.annotation.*;
 import java.text.DateFormat;
@@ -20,6 +21,7 @@ import java.util.Date;
 @XmlRootElement(name = "measurement")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = {"value" , "time" , "comment"})
+
 public class Measurement {
     
     private double value;
