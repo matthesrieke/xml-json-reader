@@ -1,4 +1,4 @@
-package org.n52.datareader.application;
+package org.n52.datareader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -12,15 +12,15 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
-public class jsonController {
-
+public class CsvController {
     @Autowired
     private DataReaderHelper dataReaderHelper;
 
-    @GetMapping(value ="/json-data")
-    public List<Measurement> viewMeasurementsJson() throws Exception{
-        URI f = getClass().getResource("/data/file3.json").toURI();
+    @GetMapping(value ="/csv-data" ,  produces = "application/json")
+    public List<Measurement> viewMeasurementsCSV() throws Exception{
+        URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
         return dataReaderHelper.readData(asPath);
     }
 }
+

@@ -5,6 +5,10 @@
  */
 package org.n52.datareader.coding;
 
+import org.n52.datareader.model.Measurement;
+import org.springframework.stereotype.Component;
+import org.springframework.util.MimeType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,18 +16,9 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.n52.datareader.model.Measurement;
-import org.springframework.stereotype.Component;
-import org.springframework.util.MimeType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
@@ -31,10 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 
-//@Component
-@RestController
-@RequestMapping("/api")
-public class csvReader implements DataFormatReader {
+@Component
+public class CsvReader implements DataFormatReader {
 
     @Override
     public boolean supportsDataFormat(MimeType mt) {
@@ -42,7 +35,6 @@ public class csvReader implements DataFormatReader {
     }
 
     @Override
-    @GetMapping(value = "/csv-data", produces = "application/json")
     public List<Measurement> readFile(Path p) throws IOException {
         //Creating a measurement list
         List<Measurement> list = new ArrayList<>();
@@ -106,9 +98,5 @@ public class csvReader implements DataFormatReader {
         return list;
     }
 
-    @GetMapping("/csv-data")
-    public String getString(){
-        return "this is the result";
-    }
     
 }

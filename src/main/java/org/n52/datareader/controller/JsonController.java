@@ -12,15 +12,14 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
-public class xmlController {
+public class JsonController {
 
     @Autowired
     private DataReaderHelper dataReaderHelper;
 
-    @GetMapping(value ="/xml-data", produces = "application/json")
-    public List<Measurement> viewMeasurementsXml() throws Exception{
-
-        URI f = getClass().getResource("/data/file2.xml").toURI();
+    @GetMapping(value ="/json-data" , produces = "application/json")
+    public List<Measurement> viewMeasurementsJson() throws Exception{
+        URI f = getClass().getResource("/data/file3.json").toURI();
         Path asPath = Paths.get(f);
         return dataReaderHelper.readData(asPath);
     }

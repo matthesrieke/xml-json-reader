@@ -7,7 +7,6 @@ package org.n52.datareader.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.context.annotation.Bean;
 
 import javax.xml.bind.annotation.*;
 import java.text.DateFormat;
