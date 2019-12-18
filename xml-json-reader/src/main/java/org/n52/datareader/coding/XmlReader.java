@@ -48,7 +48,7 @@ public class XmlReader implements DataFormatReader {
         try {
             // Creating Unmarshaller
             JAXBContext jContext = JAXBContext.newInstance(Measurements.class);
-            Unmarshaller jUnmarshaller = jContext.createUnmarshaller();
+            javax.xml.bind.Unmarshaller jUnmarshaller = jContext.createUnmarshaller();
 
             Measurements unmarshaledList = (Measurements) jUnmarshaller.unmarshal(stream);
 
