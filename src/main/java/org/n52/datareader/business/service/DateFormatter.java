@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-/* xml adapeter is used in JAXB and to be automatically adjusted
+/* xml adapter is used in JAXB and to be automatically adjusted
 *    @XmlJavaTypeAdapter(DateFormatter.class)
     @JsonProperty(TIME)
     @XmlElement(name = TIME)

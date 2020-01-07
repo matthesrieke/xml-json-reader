@@ -12,25 +12,10 @@ import java.util.List;
 
 public class JsonParser {
 
-    Measurements measurements = new Measurements();
-
-    public void readJson(Object in) throws IOException {
+    public List<Measurement> readJson(InputStream in) throws IOException {
+        Measurements measurements = new Measurements();
         ObjectMapper objectMapper = new ObjectMapper();
-      /*  DateFormat df = new SimpleDateFormat(DateFormatter.CUSTOM_FORMAT_STRING);
-        objectMapper.setDateFormat(df);*/
-        if (in instanceof Path) {
-            File file = ((Path) in).toFile();
-            measurements.setMeasurements(objectMapper.readValue(file, new TypeReference<List<Measurement>>() {
-            }));
-        } else if (in instanceof InputStream) {
-            measurements.setMeasurements(objectMapper.readValue((InputStream) in, new TypeReference<List<Measurement>>() {
-            }));
-        } else throw new IOException("the given object is neither path  nor InputSteam Instance");
+        measurements.setMeasurements(objectMapper.readValue(in, new TypeReference<List<Measurement>>() {}));
+        return measurements.getMeasurements();
     }
-
-
-    public Measurements getContent() {
-        return measurements;
-    }
-
 }

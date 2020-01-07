@@ -8,13 +8,14 @@ import org.springframework.util.MimeType;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
 @Component
 public class XmlReader implements DataFormatReader {
-    private XmlParser parser = new XmlParser();
+    private final XmlParser parser = new XmlParser();
+
     @Override
     public boolean supportsDataFormat(MimeType mt) {
         return MimeType.valueOf(MediaType.APPLICATION_XML_VALUE).isCompatibleWith(mt);
@@ -22,22 +23,13 @@ public class XmlReader implements DataFormatReader {
 
     @Override
     public List<Measurement> readFile(Path p) throws IOException {
+        List<Measurement> measurements;
         try {
-            parser.unmarshall(p);
+            measurements= parser.unmarshall(Files.newInputStream(p));
         } catch (JAXBException e) {
-            e.printStackTrace();
+            throw new IOException("Exception in reading the xml File");
         }
-        return parser.getContent().getMeasurements();
-    }
-
-    @Override
-    public List<Measurement> readStream(InputStream stream) throws IOException {
-        try {
-            parser.unmarshall(stream);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return parser.getContent().getMeasurements();
+        return measurements;
     }
 
 

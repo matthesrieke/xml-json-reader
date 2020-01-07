@@ -8,34 +8,31 @@ import org.n52.datareader.business.domain.Measurements;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.text.ParseException;
+import java.util.List;
 
 public class CsvParser {
-    Measurements measurements = new Measurements();
 
 
-    public void readCsvFile(Object source) throws IOException, ParseException {
+
+    public List<Measurement> readCsvFile(InputStream source) throws IOException, ParseException {
         Iterable<CSVRecord> records;
         DateFormatter dateFormatter = new DateFormatter();
+        Measurements measurements = new Measurements();
         CSVFormat csvFormat = CSVFormat.EXCEL.withDelimiter(';').withHeader().withSkipHeaderRecord();
 
-        if (source instanceof Path) {
-             records = CSVParser.parse((Path) source, Charset.defaultCharset(),csvFormat);
-        } else if (source instanceof InputStream) {
-             records = CSVParser.parse((InputStream) source, Charset.defaultCharset(),csvFormat);
-        }else throw new IOException("the given object is neither path  nor InputSteam Instance") ;
+             records = CSVParser.parse(source, Charset.defaultCharset(),csvFormat);
+
 
         for (CSVRecord record : records) {
-            String time = (String) record.get(Measurement.TIME);
-            String value = (String) record.get(Measurement.VALUE);
-            String comment = (String) record.get(Measurement.COMMENT);
+            String time = record.get(Measurement.TIME);
+            String value = record.get(Measurement.VALUE);
+            String comment = record.get(Measurement.COMMENT);
             Measurement measurement = new Measurement(Double.parseDouble(value), dateFormatter.unmarshal(time), comment);
             measurements.getMeasurements().add(measurement);
         }
+        return measurements.getMeasurements();
     }
 
-    public Measurements getContent() {
-        return measurements;
-    }
+
 }

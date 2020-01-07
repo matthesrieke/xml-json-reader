@@ -27,7 +27,5 @@ public interface DataFormatReader {
     boolean supportsDataFormat(MimeType mt);
     
     List<Measurement> readFile(Path p) throws IOException;
-    
-    List<Measurement> readStream(InputStream stream) throws IOException;
-    
+
 }

@@ -1,28 +1,22 @@
 package org.n52.datareader;
 
-import java.util.List;
-
-import org.n52.datareader.coding.DataFormatReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 
+@Log4j2
 @SpringBootApplication
 public class DatareaderApplication {
-    @Bean
-    public Logger getLogger(){
-        return LoggerFactory.getLogger(DatareaderApplication.class);
+
+    public DatareaderApplication() {
     }
 
-    @Autowired
-    List<DataFormatReader> readers;
-
     public static void main(String[] args) {
-        SpringApplication.run(DatareaderApplication.class, args);
+        SpringApplication myapp = new SpringApplication(DatareaderApplication.class);
+        myapp.run(args);
+        log.info("Simple log statement with inputs {}, {} and {}", 1, 2, 3);
     }
 
     /** @Override

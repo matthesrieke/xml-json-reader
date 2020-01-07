@@ -1,5 +1,6 @@
 package org.n52.datareader.business.service;
 
+import org.n52.datareader.business.domain.Measurement;
 import org.n52.datareader.business.domain.Measurements;
 
 import javax.xml.bind.JAXBContext;
@@ -9,25 +10,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-
+import java.util.List;
 
 public class XmlParser {
 
-
-    private Measurements measurements;
-
-    public void unmarshall(Object in) throws JAXBException, IOException {
+    public List<Measurement> unmarshall(InputStream in) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(Measurements.class);
-        if (in instanceof Path){
-            File file = ((Path) in).toFile();
-            measurements = (Measurements) context.createUnmarshaller().unmarshal(new FileReader(file));
-        }else if (in instanceof InputStream) {
-            measurements = (Measurements) context.createUnmarshaller().unmarshal((InputStream) in);
-        }else throw new IOException("the given object is neither path  nor InputSteam Instance") ;
+        Measurements measurements = (Measurements) context.createUnmarshaller().unmarshal(in);
+        return measurements.getMeasurements();
     }
-
-    public Measurements getContent() {
-        return measurements;
-    }
-
 }

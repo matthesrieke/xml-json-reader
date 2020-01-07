@@ -11,6 +11,10 @@ import java.util.List;
 public class Measurements {
     @XmlElement(name = "measurement", type = Measurement.class)
     private List<Measurement> measurementList = new ArrayList<>();
+
+    public Measurements() {
+    }
+
     public void setMeasurements(List<Measurement> measurementList) {
         this.measurementList = measurementList;
     }
@@ -18,4 +22,13 @@ public class Measurements {
         return measurementList;
     }
 
+    public List <Measurement> getMeasurementList() {
+        return this.measurementList;
     }
+
+    public void setMeasurementList(List <Measurement> measurementList) {
+        this.measurementList = measurementList;
+    }
+
+
+}
