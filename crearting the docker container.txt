@@ -1,0 +1,2 @@
+docker build -t xml-json-reader .
+docker run --name xml-reader-container -p 8080:8080 xml-json-reader
