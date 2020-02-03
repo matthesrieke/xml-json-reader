@@ -8,6 +8,7 @@ package org.n52.datareader.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,13 +22,22 @@ import java.util.Objects;
 @XmlRootElement(name = "measurement")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = {"value" , "time" , "comment"})
-
+@Entity
+@Table(name = "measurement")
 public class Measurement {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="measurement_id")
+    private Integer id;
+
+    @Column(name = "measurement_value")
     private double value;
     @JsonFormat
             (shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd'T'HH:mm:ss'Z'")
+    @Column(name = "measurement_time")
     private Date time;
+    @Column(name = "measurement_comment")
     private String comment;
 
     public Measurement() {
