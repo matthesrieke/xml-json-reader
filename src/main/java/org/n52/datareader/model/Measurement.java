@@ -29,7 +29,7 @@ public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="measurement_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "measurement_value")
     private double value;

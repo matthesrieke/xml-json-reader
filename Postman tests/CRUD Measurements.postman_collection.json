@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "b7f86c4d-f24a-4a03-b571-bc2c52d0dd9f",
+		"name": "CRUD Measurements",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addMeasurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Time\": \"2019-10-21T13:23:05Z\",\r\n    \"Value\": 29.3340960593676,\r\n    \"Comment\": \"This is a test measurement number 876\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/addMeasurement",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addMeasurement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "measurementCount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/measuremntsCount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"measuremntsCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteMeasurement",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/deleteMeasurement/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteMeasurement",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "allMeasurements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/allMeasurements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"allMeasurements"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
