@@ -23,22 +23,24 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = {"value" , "time" , "comment"})
 @Entity
-@Table(name = "measurement")
+@Table(name = "MEASUREMENT")
 public class Measurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="measurement_id")
+    @Column(name="MEASUREMENT_ID")
     private Long id;
 
-    @Column(name = "measurement_value")
+    @Column(name = "MEASUREMENT_VALUE")
     private double value;
     @JsonFormat
             (shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(name = "measurement_time")
+    @Column(name = "MEASUREMENT_TIME")
     private Date time;
-    @Column(name = "measurement_comment")
+    @Column(name = "MEASUREMENT_COMMENT")
     private String comment;
+    @Column
+    private Long station_id;
 
     public Measurement() {
     }
