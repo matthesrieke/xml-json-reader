@@ -7,6 +7,7 @@ package org.n52.datareader.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -27,7 +28,8 @@ import java.util.Objects;
 public class Measurement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     @Column(name="MEASUREMENT_ID")
     private Long id;
 
@@ -39,7 +41,7 @@ public class Measurement {
     private Date time;
     @Column(name = "MEASUREMENT_COMMENT")
     private String comment;
-    @Column
+    @Column(name = "STATION_ID")
     private Long station_id;
 
     public Measurement() {
