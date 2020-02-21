@@ -1,0 +1,3 @@
+docker run  --detach   --name measurements-db -p 6604:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=measurements -e MYSQL_USER=fadi -e MYSQL_PASSWORD=password -d mysql:8.0.19
+
+docker run -it --link measurements-db:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
