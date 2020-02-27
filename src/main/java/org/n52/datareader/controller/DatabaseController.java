@@ -14,7 +14,8 @@ public class DatabaseController {
 
     @GetMapping("/allMeasurements")
     public List<Measurement> findAll(){
-        return databaseService.findAll();
+        List<Measurement> listMeasurementsResult = databaseService.findAll();
+        return listMeasurementsResult;
     }
 
     @GetMapping("/measuremntsCount")

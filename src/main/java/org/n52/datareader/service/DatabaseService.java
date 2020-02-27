@@ -25,8 +25,8 @@ public class DatabaseService {
 
     public List<Measurement> findAll(){
         Iterable<Measurement> m = measurementRepository.findAll();
-        List measurements = new ArrayList<MessageDigest>();
-        m.forEach(e -> measurements.add(m));
+        List measurements = new ArrayList<Measurement>();
+        m.forEach(e -> measurements.add(e));
         return measurements;
     }
 
