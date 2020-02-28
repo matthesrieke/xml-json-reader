@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
-import org.n52.datareader.model.Measurement;
+import org.n52.datareader.business.domain.Measurement;
 import org.springframework.util.MimeType;
 
 /**
@@ -27,7 +27,5 @@ public interface DataFormatReader {
     boolean supportsDataFormat(MimeType mt);
     
     List<Measurement> readFile(Path p) throws IOException;
-    
-    List<Measurement> readStream(InputStream stream) throws IOException;
-    
+
 }

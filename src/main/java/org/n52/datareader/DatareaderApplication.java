@@ -1,52 +1,45 @@
 package org.n52.datareader;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-import org.n52.datareader.coding.DataFormatReader;
-import org.n52.datareader.model.Measurement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.util.MimeType;
 
+
+@Log4j2
 @SpringBootApplication
-public class DatareaderApplication implements InitializingBean {
+public class DatareaderApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DatareaderApplication.class);
-
-    @Autowired
-    List<DataFormatReader> readers;
-
-    public static void main(String[] args) {
-        SpringApplication.run(DatareaderApplication.class, args);
+    public DatareaderApplication() {
     }
 
-    @Override
+    public static void main(String[] args) {
+        SpringApplication myapp = new SpringApplication(DatareaderApplication.class);
+        myapp.run(args);
+        log.info("Simple log statement with inputs {}, {} and {}", 1, 2, 3);
+    }
+
+    /** @Override
     public void afterPropertiesSet() throws Exception {
-        String f = getClass().getResource("/data/file1.csv").getFile();
+        URI f = getClass().getResource("/data/file1.csv").toURI();
         Path asPath = Paths.get(f);
 
         if (Files.exists(asPath)) {
             Path directory = asPath.getParent();
-            StreamSupport.stream(Files.newDirectoryStream(directory).spliterator(), true).forEach(dataFile -> {
+            DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory);
+            Spliterator<Path> F = directoryStream.spliterator();
+            StreamSupport.stream(F, true).forEach(dataFile -> {
                 try {
-                    String mimeType = Files.probeContentType(dataFile);
+                    Tika tika = new Tika();
+                    String mimeType = tika.detect(dataFile.toFile());
                     MimeType asMimeType = MimeType.valueOf(mimeType);
-
                     Optional<DataFormatReader> candidate = this.readers.stream()
                             .filter(h -> h.supportsDataFormat(asMimeType))
                             .findFirst();
 
                     if (candidate.isPresent()) {
                         List<Measurement> result = candidate.get().readFile(dataFile);
+
                         LOG.info("Measurements of {}: {}", dataFile.toFile().getName(), result);
                     } else {
                         LOG.info("File type not supported: {}", asMimeType);
@@ -58,6 +51,6 @@ public class DatareaderApplication implements InitializingBean {
             });
         }
 
-    }
+    }*/
 
 }
