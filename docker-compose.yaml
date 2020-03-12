@@ -1,12 +1,30 @@
 version: '3.6'
 services:
-    mysql:
-        image: mysql:8.0.19
-        restart: always
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: measurements
-          MYSQL_USER: fadi
-          MYSQL_PASSWORD: password
-        ports:
-          - "6604:3306"
+    db:
+      image: mysql:8.0.19
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+        MYSQL_USER: fadi
+        MYSQL_PASSWORD: password
+        MYSQL_DATABASE: measurements
+        MYSQL_ROOT_PASSWORD: password
+      networks:
+        - spring_net
+
+    application:
+      build:
+        context: .
+      restart: always
+      # network_mode: host
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/measurements?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+        #WAIT_HOSTS: mysql:3306
+      ports:
+        - "8080:8080/tcp"
+      networks:
+        - spring_net
+
+networks:
+    spring_net:
+      driver: bridge
